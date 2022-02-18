@@ -1,8 +1,89 @@
-#menu{
+
+.nav-leftside{
+    display: flex;
+    margin-left: 50px;
+}
+.nav-rightside{
+    display: flex;
+}
+.menu-items{
     display: flex;
     justify-content: space-between;
+    padding: 5px 100px 5px 100px ;
+    background-color: pink;
+    
 }
-.button-group{
+.menu-toggler {
+    display: none;
+    font-size: xx-large;
+}
+
+.nav-link{
+    color: black;
+}
+.fa-plus{
+    font-size: 4em;
+    
+}
+.new-deck{
+    margin-top: 10%;
     display: flex;
-    margin-left: 500px;
+    justify-content: center;
+    background-color: aliceblue;
 }
+.add-new-deck{
+background-color: beige;
+text-align: center;
+}
+.deck{
+    background-color: rgba(255, 255, 255, 0.8);
+  border: 1px solid rgba(0, 0, 0, 0.8);
+  padding: 20px;
+  text-align: center;
+}
+.decks{
+    display: grid;
+  grid-template-columns: auto auto auto;
+  background-color: #2196F3;
+  padding: 10px;
+}
+.new-deck-details{
+    margin-top: 10%;
+}
+.new-deck-card{
+width: 30em;
+margin: auto;
+}
+.new-card-details{
+    margin-top: 10%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+}
+.add-card-btn{
+
+ margin: 3% 40% 0% ;
+   
+}
+
+@media only screen and (max-width: 600px) {
+    .menu-toggler {
+        display: block;
+     margin: 0% 0% 0% 100%; 
+     border: none;
+     background-color: transparent;
+    }
+    .nav-leftside{
+        margin: 0;
+        display: block;
+    }
+    .nav-rightside{
+        margin: 0;
+        display: block;
+    
+    }
+    .nav-link{
+        display: none;
+    }
+   
+    
+  }

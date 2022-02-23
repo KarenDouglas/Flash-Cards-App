@@ -3,25 +3,30 @@
     <%- include('./partials/head.ejs') %>
 <body>
     <%- include('./partials/nav.ejs') %>
-
-    <h1>Log in</h1>
+    
+    <h1>Sign Up Form</h1>
     
     <form class="login-form">
         <div class="mb-3">
-          <label for="usernameInput" class="form-label">Username</label>
+          <label for="usernameInput" class="form-label">Create Username</label>
           <input type="text" class="form-control" id="usernameInput" >
         </div>
         <div class="mb-3">
-          <label for="password1" class="form-label">Password</label>
+          <label for="password1" class="form-label"> Create Password</label>
           <input type="password" class="form-control" id="password1">
         </div>
+        <div class="mb-3">
+            <label for="password2" class="form-label">Confirm Password</label>
+            <input type="password" class="form-control" id="password2">
+          </div>
         <div class="mb-3 form-check">
           <input type="checkbox" class="form-check-input" id="exampleCheck1">
           <label class="form-check-label" for="exampleCheck1">keep me signed in</label>
         </div>
-        <button type="submit" class="btn btn-outline-primary">Log in</button>
+        <button type="submit" class="btn btn-outline-primary">Sign Up</button>
       </form>
-      <p style="text-align: center;"><a href="/signup" >Dont Have a Log in? Sign Up Here!</a></p>
+      <p style="text-align: center;"><a href="/login" >Already Signed Up? Log in Here!</a></p>
+
     <%- include('./partials/footer.ejs') %>
 </body>
 </html>

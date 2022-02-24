@@ -1,12 +1,21 @@
 const express = require('express');
 const { render } = require('express/lib/response');
+const { default: mongoose } = require('mongoose');
 const morgan = require('morgan');
 
 const app = express();
 
+const dbURI ='mongodb+srv://master:tim1Mpwc@nodetuts.vxfit.mongodb.net/flashcards-app?retryWrites=true&w=majority'
+mongoose.connect(dbURI)
+.then((result) => {
+    app.listen(5000);
+    console.log('conntected to db')
+})
+.catch(err => console.log('error',err))
+
 app.set('view engine', 'ejs');
 
-app.listen(5000);
+
 
 app.use(express.static('public'));
 app.use(morgan('dev'));

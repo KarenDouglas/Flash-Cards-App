@@ -14,38 +14,27 @@
             </div>
         </div>
     </div>
-    <h2>Your Decks</h2>
+    
+        
+            
+    <h2><%= userOne.username%>'s Decks</h2>
 <hr>
     <div class="decks-container">
+      
         <div class="decks ">
+            <% if(userOne.flashcardDeck.length > 0){%>
+                <% userOne.flashcardDeck.forEach( deck => {%>
             <div class="deck">
                 <div class="card " style="height: 15em;">
                     <div class="card-body">
-                        <h5 class="card-title">Deck</h5>
+                        <h5 class="card-title"><%= deck.title%></h5>
                     </div>
                 </div>
             </div>
-            <div class="deck">
-                <div class="card " style="height: 15em;">
-                    <div class="card-body">
-                        <h5 class="card-title">Deck</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="deck">
-                <div class="card " style="height: 15em;">
-                    <div class="card-body">
-                        <h5 class="card-title">Deck</h5>
-                    </div>
-                </div>
-            </div>
-            <div class="deck">
-                <div class="card " style="height: 15em;">
-                    <div class="card-body">
-                        <h5 class="card-title">Deck</h5>
-                    </div>
-                </div>
-            </div>
+            <% }) %>
+            <% } else{ %>
+                <p>there are no decks to display</p>
+                <%}%>
         </div>
     </div>
     <hr>

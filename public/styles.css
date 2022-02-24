@@ -126,8 +126,9 @@ margin: auto;
     font-weight: 500;
    width: 30em;
    margin: 7% auto;
-   border: #2196F3 solid .5px;
-   padding: 10px;
+   border: black solid .5px;
+   padding: 30px;
+   background-color: white;
 }
 
 @media only screen and (max-width: 600px) {

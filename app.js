@@ -1,5 +1,6 @@
 const express = require('express');
 const { render } = require('express/lib/response');
+const morgan = require('morgan');
 
 const app = express();
 
@@ -8,9 +9,16 @@ app.set('view engine', 'ejs');
 app.listen(5000);
 
 app.use(express.static('public'));
+app.use(morgan('dev'));
 
 app.get('/' , (req, res) => {
-    res.render('index', {title: 'Home'})
+    const userOne ={
+        username: 'Karen',
+        password: 'test123',
+        flashcardDeck: [{title: "first deck", cards:[]},{title: "third deck", cards:[]},{title: "second deck", cards:[]}]
+    }
+
+    res.render('index', {title: 'Home', userOne})
 });
 app.get('/about' , (req, res) => {
     res.render('about',  {title: 'About'})

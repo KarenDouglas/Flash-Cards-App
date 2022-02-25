@@ -2,6 +2,7 @@ const express = require('express');
 const { render } = require('express/lib/response');
 const { default: mongoose } = require('mongoose');
 const morgan = require('morgan');
+const User = require('./models/user');
 
 const app = express();
 
@@ -21,17 +22,34 @@ app.use(express.static('public'));
 app.use(morgan('dev'));
 
 app.get('/' , (req, res) => {
-    const userOne ={
+    const users ={
         username: 'Karen',
         password: 'test123',
         flashcardDeck: [{title: "first deck", cards:[]},{title: "third deck", cards:[]},{title: "second deck", cards:[]}]
     }
 
-    res.render('index', {title: 'Home', userOne})
+    res.render('index', {title: 'Home', users})
 });
 app.get('/about' , (req, res) => {
     res.render('about',  {title: 'About'})
 });
+
+//database test
+app.get('/all-users' , (req, res) => {
+    // const user = new User({
+    //     username: 'Emily',
+    //     password: 'test123',
+    //     flashcardDeck: [{title: "e first deck", cards:[]},{title: "e third deck", cards:[]},{title: "e second deck", cards:[]}]
+    // })
+
+    
+    User.find()
+    .then((result)=> {
+       res.send(result)
+    })
+    .catch(err => console.log(err))
+});
+
 app.get('/add-cards' , (req, res) => {
     res.render('add-cards',  {title: 'Add Cards'})
 });

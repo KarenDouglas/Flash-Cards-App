@@ -17,13 +17,13 @@
     
         
             
-    <h2><%= userOne.username%>'s Decks</h2>
+    <h2><%= users.username%>'s Decks</h2>
 <hr>
     <div class="decks-container">
       
         <div class="decks ">
-            <% if(userOne.flashcardDeck.length > 0){%>
-                <% userOne.flashcardDeck.forEach( deck => {%>
+            <% if(users.flashcardDeck.length > 0){%>
+                <% users.flashcardDeck.forEach( deck => {%>
             <div class="deck">
                 <div class="card " style="height: 15em;">
                     <div class="card-body">

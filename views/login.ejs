@@ -6,18 +6,14 @@
 
     <h1>Log in</h1>
     
-    <form class="login-form">
+    <form class="login-form" action="/:username" method="GET">
         <div class="mb-3">
-          <label for="usernameInput" class="form-label">Username</label>
-          <input type="text" class="form-control" id="usernameInput" >
+          <label for="username" class="form-label">Username</label>
+          <input type="text" class="form-control" id="username" name="username">
         </div>
         <div class="mb-3">
-          <label for="password1" class="form-label">Password</label>
-          <input type="password" class="form-control" id="password1">
-        </div>
-        <div class="mb-3 form-check">
-          <input type="checkbox" class="form-check-input" id="exampleCheck1">
-          <label class="form-check-label" for="exampleCheck1">Keep me signed in</label>
+          <label for="password" class="form-label">Password</label>
+          <input type="password" class="form-control" id="password" name="password">
         </div>
         <button type="submit" class="btn btn-outline-primary">Log in</button>
       </form>

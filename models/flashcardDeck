@@ -1,0 +1,31 @@
+const mongoose = require('mongoose');
+const Schema = mongoose.Schema;
+
+
+// the schema defines the structure of the document
+
+const FlashcardSchema = new Schema({
+   prompt: {
+    type: String,
+    required: true
+  },
+  response: {
+    type: String,
+    required: true
+  }
+})
+
+const FlashcardDeckSchema = new Schema({
+  title:{
+  type: String,
+  required: true},
+  cards: [FlashcardSchema]
+}, {timestamps: true})
+
+//this model surrounds the schema 
+// this model takes in the name of the models as  its first argument and looks for the collection in the database. this name should be the singular version of its counterpart in the database
+// the second argument is the schema I want to base it on 
+
+const FlashcardDeck = mongoose.model('flashcardDeck', FlashcardDeckSchema);
+
+module.exports = FlashcardDeck;

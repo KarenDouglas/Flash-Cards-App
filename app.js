@@ -3,15 +3,19 @@ const { render } = require('express/lib/response');
 const { default: mongoose } = require('mongoose');
 const morgan = require('morgan');
 const User = require('./models/user');
+const FlashcardDeck = require('./models/flashcardDeck');
+
 const dbURI = require('./hideme')
 
 const app = express();
-
+const port = 5000;
 
 mongoose.connect(dbURI)
 .then((result) => {
-    app.listen(5000);
-    console.log('conntected to db')
+
+    app.listen(port);
+
+    console.log(`conntected to db on localhost:${port}`)
 })
 .catch(err => console.log('error',err))
 
@@ -36,19 +40,23 @@ app.get('/about' , (req, res) => {
 });
 
 //database test
-app.get('/all-users' , (req, res) => {
-    // const user = new User({
-    //     username: 'Emily',
-    //     password: 'test123',
-    //     flashcardDeck: [{title: "e first deck", cards:[]},{title: "e third deck", cards:[]},{title: "e second deck", cards:[]}]
-    // })
-
-    
-    User.find()
-    .then((result)=> {
-       res.send(result)
+app.get('/all-decks' , (req, res) => {
+     const flashcardDeck = new FlashcardDeck({
+         title: "Mock Deck",
+         cards: [ 
+             {prompt: "prompt 1", response: "reponse 1"},
+             {prompt: "prompt 2", response: "reponse 2"},
+             {prompt: "prompt 3", response: "reponse 3"}
+            
+            ]
+     })
+    flashcardDeck.save()
+    .then((result) => {
+        res.send(result)
     })
-    .catch(err => console.log(err))
+    .catch((err)=> console.log(err));
+    
+  
     
 });
 app.get('/login' , (req, res) => {
@@ -62,7 +70,7 @@ app.get('/:username' , (req, res) => {
     User.findOne(req.body)
     .then((user)=> {
         
-       console.log(user)
+    
        
       
      

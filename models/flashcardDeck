@@ -19,6 +19,9 @@ const FlashcardDeckSchema = new Schema({
   title:{
   type: String,
   required: true},
+  description: {
+      type: String
+  },
   cards: [FlashcardSchema]
 }, {timestamps: true})
 

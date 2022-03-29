@@ -5,6 +5,8 @@
 <body>
     <!-- Nav Bar -->
     <%- include('./partials/nav.ejs') %>
+
+
     <h1>Create a New Deck</h1>
     <div class="new-deck-details">
         <div class="card new-deck-card" >
@@ -12,14 +14,14 @@
                 <h5 class="card-title text-center"> New Deck</h5>
             </div>
             <div class="card-body">
-                <form>
+                <form action ="/flashcards" method="POST">
                     <div class="mb-3">
                       <label for="deck-title" class="form-label">Deck Title</label>
-                      <input type="text" class="form-control" id="deck-title" >
+                      <input type="text" class="form-control" id="deck-title" name="title" >
                     </div>
                     <div class="mb-3">
                       <label for="deck-description" class="form-label">Description</label>
-                        <textarea name="deck-description" id="" class="form-control"></textarea>
+                        <textarea name="description" id="" class="form-control"></textarea>
                     </div>
                     <div class="mb-3 form-check">
                     </div>

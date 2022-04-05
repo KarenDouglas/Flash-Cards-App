@@ -7,7 +7,7 @@
      <%- include('./partials/nav.ejs') %>
     <h1 style="text-align: center; margin-top: 5%;"><%=flashcarddeck.title%></h1>
     <div >
-        <form class="new-card-details" >
+        <form class="new-card-details" action="flashcards/<%=flashcarddeck._id%>/add-cards">
         <div class="card new-deck-card" style="height: 20.5em;" >
             <div class="card-header">
                 <h5 class="card-title text-center">prompt / front</h5>
@@ -48,21 +48,34 @@
      <script>
          const form = document.querySelector('form');
          const pushToDb = document.querySelector('button.overHere')
-         const endpoint =`/flashcards/${pushToDb.dataset.doc}/add-cards`
+         const endpoint =`add-cards`
+
+
+    //  "flashcards/${pushToDb.dataset.doc}/add-cards"
+       
         
         pushToDb.addEventListener('click', (e)=> {
             e.preventDefault();
-            const data = { prompt: form.prompt.value , response: form.response.value}
+            const prompt = form.prompt.value
+            const response = form.response.value
+            const data = { prompt : prompt , response: response}
             console.log(data)
             fetch(endpoint,{
                 method: 'POST',
                 headers: {
-                        'Content-Type': 'application/json'
-                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                    'Content-Type': 'application/json'
                 },
                 body: JSON.stringify(data)
             })
-            .then((res => console.log(res.body)))
+            .then((res => {
+                console.log('req made')
+               res.json() //<-- this turns the response from the server into a readable file in the client
+                .then(res => {
+                    console.log(res)
+                })
+                .catch(err => console.log(err));
+            }))
+            
             .catch(err=> console.log(err))
         })
          

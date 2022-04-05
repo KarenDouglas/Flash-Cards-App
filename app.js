@@ -1,5 +1,5 @@
 const express = require('express');
-const { render } = require('express/lib/response');
+const { render, redirect } = require('express/lib/response');
 const { default: mongoose } = require('mongoose');
 const morgan = require('morgan');
 const User = require('./models/user');
@@ -25,8 +25,9 @@ app.set('view engine', 'ejs');
 
 
 app.use(express.static('public'));
+app.use(express.json()); // <--- this allow me to parse incoming data as JSON
+app.use(express.urlencoded({extended:true})); // urlencoded allow for me to make server requests directly from a form and  pass the data into a req object
 
-app.use(express.urlencoded({extended:true})); // urlencoded allow for me to make most request directly from form and  pass the data into a req object
 app.use(morgan('dev'));
 
 app.get('/' , (req, res) => {
@@ -114,7 +115,6 @@ app.get('/flashcards/:id/add-cards' , (req, res) => {
     FlashcardDeck.findById(id)
     .then((result)=>{
         res.render('add-cards',  {title: 'Add Cards',  flashcarddeck: result})
-        console.log(`${result.title} has added to cards: ${result.cards}`)
     })
     .catch(err => console.log(err));
 
@@ -123,13 +123,20 @@ app.get('/flashcards/:id/add-cards' , (req, res) => {
 });
 app.post('/flashcards/:id/add-cards' , (req, res) => {
     const id = req.params.id
+    const hardcoded = {"prompt": "HARDPROMPT    ", "response": "hardreponse"}
+
+    console.log( '----------REQ.BODY-------------',req.body,'--------------------')
     FlashcardDeck.findOneAndUpdate({_id: id}  , {
         $push: {cards: [req.body]}
     })
     .then(results => {
-        console.log(results)
-        res.write('hi')
-        res.send();
+    
+        res.json({ //<---this sends a response to the client in a format that is readable to it
+            status: "SUCCESS!!!",
+            prompt: req.body.prompt,
+            response:req.body.response
+        })
+     
     })
     .catch(err=> console.log(err))
    

@@ -6,14 +6,14 @@
 
     <h1>Flashcards App</h1>
 
-    <div class="new-deck">
+    <a href="flashcards/create-deck" style="text-decoration: none;"><div class="new-deck">
         <div class="card add-new-deck" >
             <div class="card-body">
                 <h5 class="card-title">Add New Deck</h5>
                 <i class="fa fa-solid fa-plus"></i>
             </div>
         </div>
-    </div>
+    </div></a>
     
         
             
@@ -24,13 +24,18 @@
         <div class="decks ">
             <% if(flashcarddecks.length > 0){%>
                 <% flashcarddecks.forEach( deck => {%>
-            <div class="deck">
-                <div class="card " style="height: 15em;">
-                    <div class="card-body">
-                        <h5 class="card-title"><%= deck.title%></h5>
-                    </div>
+                <div class="deck">
+                    <a href="flashcards/<%=deck._id%>/add-cards" style="text-decoration: none;"> 
+                        <div class="card " style="height: 15em;">
+                            <div class="card-body">
+                                <h5 class="card-title"><%= deck.title%></h5>
+                                <h6 class="deck-desc"><%= deck.description%></h6>
+                                <button>X</button>
+                                <a href="flashcards/<%=deck._id%>/add-cards"><button>add cards</button></a>
+                            </div>
+                        </div>
+                    </a>
                 </div>
-            </div>
             <% }) %>
             <% } else{ %>
                 <p>there are no decks to display</p>

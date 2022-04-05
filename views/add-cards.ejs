@@ -5,28 +5,22 @@
 <body>
     <!-- Nav Bar -->
      <%- include('./partials/nav.ejs') %>
-    <h1 style="text-align: center; margin-top: 5%;">Deck Name Placeholder</h1>
-    <div class="add-card-btn">
-        <button type="submit" class="btn btn-primary">Add Another Card</button>
-        <button type="submit" class="btn btn-warning">Run Deck</button>
-        <button type="submit" class="btn btn-success">Done!</button>
-    </div>
-    <div class="new-card-details">
+    <h1 style="text-align: center; margin-top: 5%;"><%=flashcarddeck.title%></h1>
+    <div >
+        <form class="new-card-details" >
         <div class="card new-deck-card" style="height: 20.5em;" >
             <div class="card-header">
                 <h5 class="card-title text-center">prompt / front</h5>
             </div>
             <div class="card-body">
-                <form>
                     <div class="mb-3">
                       <label for="card-prompt" class="form-label" >prompt</label>
-                        <input name="card-prompt" id="" class="form-control" aria-describedby="promptHelp">
+                        <input name="prompt" id="" class="form-control prompt" aria-describedby="promptHelp">
                         <div id="promptHelp" class="form-text">Keep it simple</div>
                     </div>
                     <div class="mb-3 form-check">
                     </div>
                     
-                </form>
             </div>
         </div>
         
@@ -35,19 +29,44 @@
                 <h5 class="card-title text-center">response / back</h5>
             </div>
             <div class="card-body">
-                <form>
                     <div class="mb-3">
                       <label for="card-reponse" class="form-label">reponse</label>
-                        <textarea name="card-reponse" id="" class="form-control" rows="5" aria-describedby="responseHelp"></textarea>
+                        <textarea name="response" id="" class="form-control response" rows="5" aria-describedby="responseHelp"></textarea>
                         <div id="responseHelp" class="form-text">avoid using words in the prompt</div>
                     </div>
                     <div class="mb-3 form-check">
                     </div>
-                </form>
+                
+                </div>
             </div>
-        </div>
+            <button id="myid"type="submit" class="btn btn-primary overHere" data-doc="<%=flashcarddeck._id%>">Add Another Card</button>         
+            <button type="submit" class="btn btn-success" >Done!</button>
+        </form>
     </div>
     
     <%- include('./partials/footer.ejs') %>
+     <script>
+         const form = document.querySelector('form');
+         const pushToDb = document.querySelector('button.overHere')
+         const endpoint =`/flashcards/${pushToDb.dataset.doc}/add-cards`
+        
+        pushToDb.addEventListener('click', (e)=> {
+            e.preventDefault();
+            const data = { prompt: form.prompt.value , response: form.response.value}
+            console.log(data)
+            fetch(endpoint,{
+                method: 'POST',
+                headers: {
+                        'Content-Type': 'application/json'
+                        // 'Content-Type': 'application/x-www-form-urlencoded',
+                },
+                body: JSON.stringify(data)
+            })
+            .then((res => console.log(res.body)))
+            .catch(err=> console.log(err))
+        })
+         
+            
+    </script> 
 </body>
 </html>

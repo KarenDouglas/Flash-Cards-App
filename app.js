@@ -25,7 +25,8 @@ app.set('view engine', 'ejs');
 
 
 app.use(express.static('public'));
-app.use(express.urlencoded({urlencoded:true}));
+
+app.use(express.urlencoded({extended:true})); // urlencoded allow for me to make most request directly from form and  pass the data into a req object
 app.use(morgan('dev'));
 
 app.get('/' , (req, res) => {
@@ -35,7 +36,7 @@ app.get('/about' , (req, res) => {
     res.render('about',  {title: 'About'})
 });
 
-//database test
+//DATABASE TEST
 app.get('/add-decks' , (req, res) => {
      const flashcardDeck = new FlashcardDeck({
          title: "Mock Deck 2",
@@ -69,7 +70,7 @@ app. get('/single-deck', (req, res) =>{
     })
     .catch(err => console.log (err));
 });
-//end of test 
+//END OF TEST   
 
 
 app.get('/login' , (req, res) => {
@@ -80,7 +81,7 @@ app.get('/signup' , (req, res) => {
 });
 
 
-// flash cards routes
+// FLASH CARD ROUTES
 
 
 app.get('/flashcards' , (req, res) => {
@@ -93,13 +94,45 @@ app.get('/flashcards' , (req, res) => {
         );
 });
 app.post('/flashcards', (req, res) => {
-
+    // because of urlencoded feature above I am able to pass data from the form into the req obj
+    const  flashcardDeck = new FlashcardDeck(req.body);
+   flashcardDeck.save()
+        .then((results) => {
+            res.redirect('/flashcards')
+        })
+        .catch((err) => console.log(err))
 })
-app.get('/add-cards' , (req, res) => {
-    res.render('add-cards',  {title: 'Add Cards'})
-});
+
+
 app.get('/flashcards/create-deck' , (req, res) => {
     res.render('create',  {title: 'Create Deck'})
+});
+// Route Params are parts of  the route that are variable
+
+app.get('/flashcards/:id/add-cards' , (req, res) => {
+    const id = req.params.id
+    FlashcardDeck.findById(id)
+    .then((result)=>{
+        res.render('add-cards',  {title: 'Add Cards',  flashcarddeck: result})
+        console.log(`${result.title} has added to cards: ${result.cards}`)
+    })
+    .catch(err => console.log(err));
+
+       
+
+});
+app.post('/flashcards/:id/add-cards' , (req, res) => {
+    const id = req.params.id
+    FlashcardDeck.findOneAndUpdate({_id: id}  , {
+        $push: {cards: [req.body]}
+    })
+    .then(results => {
+        console.log(results)
+        res.write('hi')
+        res.send();
+    })
+    .catch(err=> console.log(err))
+   
 });
 
 // 404 PAGE 

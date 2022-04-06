@@ -5,7 +5,7 @@
 <body>
     <!-- Nav Bar -->
      <%- include('./partials/nav.ejs') %>
-    <h1 style="text-align: center; margin-top: 5%;"><%=flashcarddeck.title%></h1>
+    <h1 style="text-align: center; margin-top: 5%;"><%=flashcarddeck.title%></h1><div  class="card d-none"><div id="alert" class="card-body"></div></div>
     <div >
         <form class="new-card-details" action="flashcards/<%=flashcarddeck._id%>/add-cards">
         <div class="card new-deck-card" style="height: 20.5em;" >
@@ -49,6 +49,7 @@
          const form = document.querySelector('form');
          const pushToDb = document.querySelector('button.overHere')
          const endpoint =`add-cards`
+         const alert = document.querySelector('#alert');
 
 
     //  "flashcards/${pushToDb.dataset.doc}/add-cards"
@@ -56,8 +57,8 @@
         
         pushToDb.addEventListener('click', (e)=> {
             e.preventDefault();
-            const prompt = form.prompt.value
-            const response = form.response.value
+           let prompt = form.prompt.value
+            let response = form.response.value
             const data = { prompt : prompt , response: response}
             console.log(data)
             fetch(endpoint,{
@@ -72,6 +73,21 @@
                res.json() //<-- this turns the response from the server into a readable file in the client
                 .then(res => {
                     console.log(res)
+                   const alertInterval= setInterval(() => { 
+                        alert.parentElement.classList.remove('d-none')
+                        alert.innerHTML = `<p>${res.prompt}: ${res.response} is added to your deck successfully</p>`
+                        form.reset();
+                    }, 1000)
+
+                    setTimeout(()=> {
+                        clearInterval(alertInterval);
+                        alert.parentElement.classList.add('d-none')
+                        
+                    },5000)
+                      
+                
+              
+                   
                 })
                 .catch(err => console.log(err));
             }))

@@ -108,7 +108,21 @@ app.post('/flashcards', (req, res) => {
 app.get('/flashcards/create-deck' , (req, res) => {
     res.render('create',  {title: 'Create Deck'})
 });
+
+
+
 // Route Params are parts of  the route that are variable
+app.get('/flashcards/:id/play' , (req, res) => {
+    const id = req.params.id;
+
+    FlashcardDeck.findById(id)
+    .then((result)=>{
+        res.render('playcards',  {title: 'Play Deck',  flashcarddeck: result, num: 0 })
+    })
+    .catch(err => console.log(err));
+
+    
+});
 
 app.get('/flashcards/:id/add-cards' , (req, res) => {
     const id = req.params.id
@@ -123,7 +137,6 @@ app.get('/flashcards/:id/add-cards' , (req, res) => {
 });
 app.post('/flashcards/:id/add-cards' , (req, res) => {
     const id = req.params.id
-    const hardcoded = {"prompt": "HARDPROMPT    ", "response": "hardreponse"}
 
     console.log( '----------REQ.BODY-------------',req.body,'--------------------')
     FlashcardDeck.findOneAndUpdate({_id: id}  , {
@@ -141,6 +154,17 @@ app.post('/flashcards/:id/add-cards' , (req, res) => {
     .catch(err=> console.log(err))
    
 });
+ app.delete('/flashcards/:id', (req, res) => {
+     const id = req.params.id
+     FlashcardDeck.findByIdAndDelete(id)
+     .then(results => {
+         res.json({
+             message: 'DELETE SUCCESSFUL'
+         })
+        
+     })
+     .catch(err => console.log(err))
+ })
 
 // 404 PAGE 
 app.use((req, res)=> {

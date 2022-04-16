@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+    <%- include('./partials/head.ejs') %>
+<body>
+    <%- include('./partials/nav.ejs') %>
+
+    <h1>Play Flashcards</h1>
+    <h2><%=flashcarddeck.title%></h2>
+
+    <% if(flashcarddeck.cards.length > 0){%>
+         
+     
+     <p name="run" id="run" value="2"></p>
+     <%let num= 0%>
+     <% const addOne = () =>  console.log('hi') %>
+      
+    
+         <button id="next" onclick="`<%addOne()%>`">next</button>
+        <%  } %>
+
+    </div>
+    
+    
+    <hr>
+    <%- include('./partials/footer.ejs') %>
+
+    <script>
+        const run = document.querySelector('#run')
+       const btn = document.querySelector('#next');
+       
+      
+  
+       
+     
+    </script>
+  
+</body>
+</html>

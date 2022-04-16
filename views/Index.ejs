@@ -25,17 +25,21 @@
             <% if(flashcarddecks.length > 0){%>
                 <% flashcarddecks.forEach( deck => {%>
                 <div class="deck">
-                    <a href="flashcards/<%=deck._id%>/add-cards" style="text-decoration: none;"> 
+                 
                         <div class="card " style="height: 15em;">
                             <div class="card-body">
                                 <h5 class="card-title"><%= deck.title%></h5>
                                 <h6 class="deck-desc"><%= deck.description%></h6>
-                                <button>X</button>
+                                <button class="delete" id="delete" data-doc="<%= deck._id%>">
+                                    X Delete Deck
+                                </button>
+                                    
                                 <a href="flashcards/<%=deck._id%>/add-cards"><button>add cards</button></a>
+                                <a href="flashcards/<%=deck._id%>/play"><button>play</button></a>
                                 <p> this deck has <%=deck.cards.length%> cards</p>
                             </div>
                         </div>
-                    </a>
+               
                 </div>
             <% }) %>
             <% } else{ %>
@@ -45,5 +49,26 @@
     </div>
     <hr>
     <%- include('./partials/footer.ejs') %>
+    <script>
+
+    const deleteDeck = document.querySelector('#delete')
+    deleteDeck.addEventListener('click', () => {
+       const endpoint= `/flashcards/${deleteDeck.dataset.doc}`
+
+       fetch(endpoint, {
+           method: 'DELETE'
+       })
+       .then((res)=>{
+           res.json()
+           .then((mess)=> {
+               console.log(mess)
+           location.reload();    
+        })
+           .catch(err => console.log(err))
+       })
+       .catch(err => console.log(err));
+     });
+
+    </script>
 </body>
 </html>

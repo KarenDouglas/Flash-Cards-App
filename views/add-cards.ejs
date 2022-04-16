@@ -40,10 +40,12 @@
                 </div>
             </div>
             <button id="myid"type="submit" class="btn btn-primary overHere" data-doc="<%=flashcarddeck._id%>">Add Another Card</button>         
-            <button type="submit" class="btn btn-success" >Done!</button>
+            
+            <button class="btn btn-success" ><a  class="flex-sm-fill text-sm-center nav-link "  aria-current="page" href="/"> Done</a></button>
+            
         </form>
     </div>
-    
+    <a class="flex-sm-fill text-sm-center nav-link " aria-current="page" href="/"><i class="fa fa-home"></i> Done</a>
     <%- include('./partials/footer.ejs') %>
      <script>
          const form = document.querySelector('form');

@@ -9,13 +9,12 @@
 
     <% if(flashcarddeck.cards.length > 0){%>
          
-     
+    
      <p name="run" id="run" value="2"></p>
-     <%let num= 0%>
-     <% const addOne = () =>  console.log('hi') %>
+    
       
     
-         <button id="next" onclick="`<%addOne()%>`">next</button>
+         <button id="next" onclick="addOne(parseInt('<%=num%>'))">next</button>
         <%  } %>
 
     </div>
@@ -29,7 +28,10 @@
        const btn = document.querySelector('#next');
        
       
-  
+        const addOne= (count) => {
+            count= count +1
+            console.log(count)
+        }
        
      
     </script>

@@ -10,6 +10,7 @@ const { urlencoded } = require('express');
 
 const app = express();
 const port = 5000;
+let num = 0
 
 mongoose.connect(dbURI, {useNewUrlParser: true, useUnifiedTopology: true})
 .then((result) => {
@@ -117,7 +118,7 @@ app.get('/flashcards/:id/play' , (req, res) => {
 
     FlashcardDeck.findById(id)
     .then((result)=>{
-        res.render('playcards',  {title: 'Play Deck',  flashcarddeck: result, num: 0 })
+        res.render('playcards',  {title: 'Play Deck',  flashcarddeck: result, num})
     })
     .catch(err => console.log(err));
 

@@ -39,7 +39,7 @@
                 
                 </div>
             </div>
-            <button id="myid"type="submit" class="btn btn-primary overHere" data-doc="<%=flashcarddeck._id%>">Add Another Card</button>         
+            <button id="myid"type="submit" class="btn btn-primary overHere" data-doc="<%=flashcarddeck.cards.length%>">Add Another Card</button>         
             
             <button class="btn btn-success" ><a  class="flex-sm-fill text-sm-center nav-link "  aria-current="page" href="/"> Done</a></button>
             
@@ -61,7 +61,7 @@
             e.preventDefault();
            let prompt = form.prompt.value
             let response = form.response.value
-            const data = { prompt : prompt , response: response}
+            const data = { prompt : prompt , response: response, cid: pushToDb.dataset.doc}
             console.log(data)
             fetch(endpoint,{
                 method: 'POST',
@@ -77,7 +77,7 @@
                     console.log(res)
                    const alertInterval= setInterval(() => { 
                         alert.parentElement.classList.remove('d-none')
-                        alert.innerHTML = `<p>${res.prompt}: ${res.response} is added to your deck successfully</p>`
+                        alert.innerHTML = `<p>${res.prompt}: ${res.response} ${res.cid} is added to your deck successfully</p>`
                         form.reset();
                     }, 1000)
 

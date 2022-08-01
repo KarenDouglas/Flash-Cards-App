@@ -9,12 +9,12 @@
 
     <% if(flashcarddeck.cards.length > 0){%>
          
-    
-     <p name="run" id="run" value="2"></p>
-    
-      
-    
-         <button id="next" onclick="addOne(parseInt('<%=num%>'))">next</button>
+   <% flashcarddeck.cards.forEach((card) => {%>
+      <a href="/flashcards/<%=flashcarddeck._id%>/<%=card._id%>"> <p><%=card%> ,<%=flashcarddeck._id%></p></a>
+      <button></button>
+       
+    <% })%>
+
         <%  } %>
 
     </div>
@@ -26,13 +26,12 @@
     <script>
         const run = document.querySelector('#run')
        const btn = document.querySelector('#next');
-       
-      
-        const addOne= (count) => {
-            count= count +1
-            console.log(count)
-        }
-       
+       const endpoint=  `flashcards/${btn.dataset.doc}/play`
+       console.log(endpoint)
+
+        setTimeout(()=>{
+           
+        }, 5000)
      
     </script>
   

@@ -113,13 +113,35 @@ app.get('/flashcards/create-deck' , (req, res) => {
 
 
 // Route Params are parts of  the route that are variable
-app.get('/flashcards/:id/play' , (req, res) => {
+app.get('/flashcards/:id' , (req, res) => {
     const id = req.params.id;
 
     FlashcardDeck.findById(id)
     .then((result)=>{
         res.render('playcards',  {title: 'Play Deck',  flashcarddeck: result, num})
     })
+    .catch(err => console.log(err));
+
+    
+});
+// Route Params are parts of  the route that are variable
+app.get('/flashcards/:id/card/:cid' , (req, res) => {
+    const id = req.params.id;
+    const cid = req.params.cid;
+    
+    FlashcardDeck.findById(id)
+    .then((result)=>{
+        
+        res.render('play',  {title: 'Play Deck',  flashcarddeck: result.cards.findById(cid),})
+       
+    })
+    .then((data)=> {
+        res.json({ 
+            status: "SUCCESS!!!",
+            cards: data.cards
+        })
+    })
+    
     .catch(err => console.log(err));
 
     
@@ -148,7 +170,8 @@ app.post('/flashcards/:id/add-cards' , (req, res) => {
         res.json({ //<---this sends a response to the client in a format that is readable to it
             status: "SUCCESS!!!",
             prompt: req.body.prompt,
-            response:req.body.response
+            response:req.body.response,
+            cid: req.body.cid
         })
      
     })

@@ -12,6 +12,9 @@ const FlashcardSchema = new Schema({
   response: {
     type: String,
     required: true
+  },
+  cid:{
+    type: Number
   }
 })
 
